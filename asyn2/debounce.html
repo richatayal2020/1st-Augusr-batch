@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" placeholder="Enter..">
+
+    <script>
+        const ref = document.querySelector('input') ;
+
+            function debounce (fn , delay){
+                let timeRef ;
+                return function (e) {
+                    clearTimeout(timeRef);
+                    timeRef = setTimeout(()=>{
+                        fn(e)
+                    }, delay )
+                }
+            }
+
+            function dethrottle( fn , delay) {
+                let flag = true ; 
+                console.log("hello")
+                return function (e) {
+                    console.log("hii")
+                    if(flag) {
+                        flag = false ;
+                        setTimeout(()=> {
+                            fn(e)
+                            flag = true ; 
+                        } ,delay)
+                    }
+                }
+            }
+
+        function fn(e) {
+            console.log(e.target.value) 
+        }
+        debounceFn = dethrottle(fn , 1000)
+       
+        ref.addEventListener('keyup' , debounceFn)
+    </script>
+</body>
+</html>
